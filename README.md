@@ -4,16 +4,20 @@ Here we described a bioinformatics method to differentiate Ann Arbor and CA/09 i
 
 ## Illumina raw reads pre-process
 
-Software: T
-Trim adapters, cut off quality < 15 regions
+Software: Trimmomatic-0.39 (http://www.usadellab.org/cms/?page=trimmomatic); FastQC (https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
+
 
 ```
-cd ~/software/trim
 
-java -jar Trimmomatic-0.39/trimmomatic-0.39.jar PE ~/hello/schu1grp_160089_kapa_amplicon-1/2-925039/*_R1_001.fastq.gz ~/hello/schu1grp_160089_kapa_amplicon-1/2-925039/*_R2_001.fastq.gz ~/hello/results/trim/output_forward_paired_39.fq.gz ~/hello/results/trim/output_forward_unpaired_39.fq.gz ~/hello/results/trim/output_reverse_paired_39.fq.gz ~/hello/results/trim/output_reverse_unpaired_39.fq.gz ILLUMINACLIP:Trimmomatic-0.39/adapters/TruSeq3-PE-2.fa:6:8:10:2:keepBothReads SLIDINGWINDOW:4:15 LEADING:3 TRAILING:3 MINLEN:36
+java -jar Trimmomatic-0.39/trimmomatic-0.39.jar PE $path-to-inputfolder/*_R1_001.fastq.gz $path-to-inputfolder/*_R2_001.fastq.gz \ 
+$path-to-outputfolder/forward_paired.fq.gz $path-to-outputfolder/forward_unpaired.fq.gz $path-to-outputfolder/reverse_paired.fq.gz $path-to-outputfolder/reverse_unpaired.fq.gz \
+ILLUMINACLIP:Trimmomatic-0.39/adapters/TruSeq3-PE-2.fa:6:8:10:2:keepBothReads SLIDINGWINDOW:4:15 LEADING:3 TRAILING:3 MINLEN:36
+#Trim adapters, cut off quality < 15 regions
+#reverse_paired.fq.gz forward_paired.fq.gz will be kept for following analysis
+
+fastqc -o outputfolder $path-to-outputfolder/forward_paired.fq.gz
+fastqc -o outputfolder $path-to-outputfolder/reverse_paired.fq.gz
 
 #check the quality
-cd ~/hello/results/trim
-~/software/QC/FastQC/fastqc -o ~/hello/results/QC output_forward_paired_39.fq.gz 
-~/software/QC/FastQC/fastqc -o ~/hello/results/QC output_reverse_paired_39.fq.gz 
+
 ```
