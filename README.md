@@ -8,8 +8,10 @@ Software: Trimmomatic-0.39 (http://www.usadellab.org/cms/?page=trimmomatic); Fas
 
 ```
 java -jar Trimmomatic-0.39/trimmomatic-0.39.jar PE $path-to-inputfolder/*_R1_001.fastq.gz $path-to-inputfolder/*_R2_001.fastq.gz \ 
-$path-to-outputfolder/forward_paired.fq.gz $path-to-outputfolder/forward_unpaired.fq.gz $path-to-outputfolder/reverse_paired.fq.gz $path-to-outputfolder/reverse_unpaired.fq.gz \
-ILLUMINACLIP:Trimmomatic-0.39/adapters/TruSeq3-PE-2.fa:6:8:10:2:keepBothReads SLIDINGWINDOW:4:15 LEADING:3 TRAILING:3 MINLEN:36
+$path-to-outputfolder/forward_paired.fq.gz $path-to-outputfolder/forward_unpaired.fq.gz \
+$path-to-outputfolder/reverse_paired.fq.gz $path-to-outputfolder/reverse_unpaired.fq.gz \
+ILLUMINACLIP:Trimmomatic-0.39/adapters/TruSeq3-PE-2.fa:6:8:10:2:keepBothReads \
+SLIDINGWINDOW:4:15 LEADING:3 TRAILING:3 MINLEN:36
 #Trim adapters, cut off quality < 15 regions
 #reverse_paired.fq.gz forward_paired.fq.gz will be kept for following analysis
 
@@ -24,8 +26,10 @@ fastqc -o outputfolder $path-to-outputfolder/reverse_paired.fq.gz
 Software: SPAdes-3.14.1 (https://github.com/ablab/spades); Quast (https://github.com/ablab/quast); Mummer (https://github.com/mummer4/mummer)
 
 ```
-SPAdes-3.14.1-Linux/bin/spades.py --rna -1 output_forward_paired.fq.gz -2 output_reverse_paired.fq.gz -o $assembly-output-folder
-quast-master/quast-lg.py $assembly-output-folder/hard_filtered_transcripts.fasta -m 36 -o $assembly-quality-assess-folder
+SPAdes-3.14.1-Linux/bin/spades.py --rna -1 output_forward_paired.fq.gz -2 output_reverse_paired.fq.gz \
+-o $assembly-output-folder
+quast-master/quast-lg.py $assembly-output-folder/hard_filtered_transcripts.fasta -m 36 \
+-o $assembly-quality-assess-folder
 #do novo assembly of influenza genome and quality check
 
 ./nucmer --maxmatch -p $name $reference.fasta $assembly-output-folder/hard_filtered_transcripts.fasta
