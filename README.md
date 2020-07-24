@@ -76,4 +76,4 @@ bcftools view $sample.bcf | vcfutils.pl varFilter -p > $sample.vcf
 ```
 ## Visualizaion
 
-.vcf file can be visualized in IGV (http://software.broadinstitute.org/software/igv/).
+$sample.vcf file can be visualized in IGV (http://software.broadinstitute.org/software/igv/).
