@@ -1,4 +1,4 @@
-# Influenza cold-adapted muations detection
+# Influenza cold-adapted mutations detection
 
 Here we described a bioinformatics method to differentiate Ann Arbor and CA/09 influenza virus background; and detecte the presence/absense of cold-adapted mutations.
 
@@ -74,6 +74,6 @@ bcftools call -mv -Ob -o $sample.bcf
 bcftools view $sample.bcf | vcfutils.pl varFilter -p > $sample.vcf
 
 ```
-## Visualizaion
+## Visualization
 
 $sample.vcf file can be visualized in IGV (http://software.broadinstitute.org/software/igv/).
